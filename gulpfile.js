@@ -15,17 +15,11 @@ gulp.task('browser-sync', function() {
 });
 
 gulp.task('watch', ['transform', 'browser-sync'], function() {
-	gulp.watch([
-		'./enrolled-notification.html',
-		'./pre-notification.html'
-	], ['transform']);
+	gulp.watch(['./src/*.html'], ['transform']);
 });
 
 gulp.task('transform', function() {
-	gulp.src([
-			'./enrolled-notification.html',
-			'./pre-notification.html'
-		])
+	gulp.src(['./src/*.html'])
 		.pipe(inlineCss({
 			removeHtmlSelectors: true
 		}))
@@ -34,7 +28,7 @@ gulp.task('transform', function() {
 			minifyCSS: true
 		}))
 		.pipe(rename({ suffix: '-out' }))
-		.pipe(gulp.dest('./'))
+		.pipe(gulp.dest('./out/'))
 		.on('end', function() { reload() });
 });
 
